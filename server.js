@@ -4,6 +4,10 @@ var mongoose = require('mongoose');
 var bodyParser = require ('body-parser')
 var morgan = require('morgan');
 var path = require('path');
+var http = require('http');
+var fs = require('fs');
+var dir = path.join(__dirname, 'public');
+
 //Mongo papu
 mongoose.connect('mongodb://localhost/vuelos');
 
@@ -18,6 +22,7 @@ app.use(function (req, res, next) {
   next();
 });
 
+app.use(express.static('images'));
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json());
@@ -35,7 +40,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/vuelos', function (req, res) {
-  res.sendFile(path.join(__dirname + '/index.html'));
+  res.sendFile(path.join(__dirname + '/vuelos.html'));
 });
 
 
